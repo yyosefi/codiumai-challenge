@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amd64inflate
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: amd64inflate
+  template:
+    metadata:
+      labels:
+        app: amd64inflate
+    spec:
+      nodeSelector:
+        kubernetes.io/arch: amd64 # Ensure pods run on x86-64 nodes
+      containers:
+        - name: amd64inflate
+          image: public.ecr.aws/eks-distro/kubernetes/pause:3.7
+          resources:
+            requests:
+              cpu: 1
